@@ -1,0 +1,7 @@
+.DS_Store
+vendor/
+account-*
+contract.sol
+conf_*
+*.swp
+Gopkg.lock
