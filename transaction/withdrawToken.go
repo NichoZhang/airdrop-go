@@ -1,11 +1,12 @@
 package transaction
 
 import (
-	"airdrop/config"
 	"context"
 	"fmt"
 	"math/big"
 	"strings"
+
+	"airdrop/config"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"

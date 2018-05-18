@@ -1,10 +1,11 @@
 package transaction
 
 import (
-	"airdrop/config"
 	"encoding/json"
 	"fmt"
 	"time"
+
+	"airdrop/config"
 )
 
 // SendToSub transfer main account's balance to subaddress

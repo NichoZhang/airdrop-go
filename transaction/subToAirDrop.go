@@ -1,8 +1,9 @@
 package transaction
 
 import (
-	"airdrop/config"
 	"fmt"
+
+	"airdrop/config"
 
 	"github.com/ethereum/go-ethereum/common"
 )

@@ -1,12 +1,13 @@
 package transaction
 
 import (
-	"airdrop/config"
 	"bufio"
 	"context"
 	"fmt"
 	"math/big"
 	"os"
+
+	"airdrop/config"
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common"
