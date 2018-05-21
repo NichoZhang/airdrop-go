@@ -15,8 +15,12 @@ func SubToAirDrop() {
 	for _, privateKey := range subAddrs {
 		subAddrKeystore := convertToKeystore(privateKey)
 		nonce, _ := getCurrentNonce(subAddrKeystore)
+		fmt.Println(subAddrKeystore.Address.Hex())
 		tx, err := SendTransaction(subAddrKeystore, common.HexToAddress(config.Conf.AirDropAddr), common.Big0, "", nonce)
-		fmt.Println(err)
-		fmt.Println(tx.Hash().Hex())
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Println(tx.Hash().Hex())
+		}
 	}
 }

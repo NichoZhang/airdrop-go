@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// Conf golbal config setting
+// Conf config setting
 var Conf confJSON
 
 // confJSON struct used to parse json

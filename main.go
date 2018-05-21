@@ -25,7 +25,7 @@ func main() {
 	flag.StringVar(&mode, "m", "sendToSub", "conf path")
 	flag.Int64Var(&amount, "amount", 0, "tx amount")
 	flag.StringVar(&network, "network", "ropsten", "network")
-	flag.StringVar(&confPath, "c", gopath+"/airdrop/conf_", "conf path")
+	flag.StringVar(&confPath, "c", gopath+"/src/airdrop/conf_", "conf path")
 	flag.Parse()
 
 	config.Init(confPath + network + ".json")
