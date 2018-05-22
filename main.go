@@ -35,14 +35,16 @@ func main() {
 		account.Create()
 	case "sendToSub":
 		transaction.SendToSub()
-	case "sendSmartContract":
-		transaction.SendSmartContract()
 	case "subToAirDrop":
 		transaction.SubToAirDrop()
-	case "withdrawToken":
-		transaction.WithdrawToken()
 	case "getTokenTotal":
 		transaction.GetTokenTotal()
+	case "getSubBalance":
+		transaction.GetAddrsBalanceTotal()
+	case "withdrawToken":
+		transaction.WithdrawToken()
+	case "sendSmartContract":
+		transaction.SendSmartContract()
 	default:
 		fmt.Println("default")
 	}

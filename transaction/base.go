@@ -84,7 +84,7 @@ func getCurrentNonce(from *keystore.Key) (uint64, error) {
 	return nonce, nil
 }
 
-func getSubAddrKey() map[string]string {
+func getSubAddrKey() (map[string]string, []string) {
 	f, err := os.Open(config.Conf.AddrPath)
 	if err != nil {
 		panic(err)
@@ -95,15 +95,17 @@ func getSubAddrKey() map[string]string {
 	i := 0
 	tmp := ""
 	addrKey := map[string]string{}
+	var addrAry []string
 	for rd.Scan() {
 		if i%2 == 0 {
 			tmp = rd.Text()
 		} else {
+			addrAry = append(addrAry, rd.Text())
 			addrKey[tmp] = rd.Text()
 		}
 		i++
 	}
-	return addrKey
+	return addrKey, addrAry
 }
 
 // initKeystore initial publickey and privatekey
@@ -116,6 +118,20 @@ func convertToKeystore(privateKeyStr string) *keystore.Key {
 		Address:    address,
 		PrivateKey: privateKey,
 	}
+}
+
+// GetBalance get addr balance
+func GetBalance(addr common.Address) {
+	client, err := InitClient()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), config.Conf.Timeout)
+	defer cancel()
+
+	fmt.Println(addr.Hex())
+	balance, _ := client.BalanceAt(ctx, addr, nil)
+	fmt.Printf("%018.18f", float64(balance.Int64())/float64(config.Ether(1).Int64()))
 }
 
 // SendTransaction transaction function

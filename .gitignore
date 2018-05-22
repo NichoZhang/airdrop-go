@@ -6,3 +6,4 @@ contract.sol
 conf_*
 *.swp
 Gopkg.lock
+addr_*

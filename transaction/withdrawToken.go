@@ -33,9 +33,9 @@ func initContract() (*bind.BoundContract, error) {
 
 // WithdrawToken withdraw token to specific address
 func WithdrawToken() (*types.Transaction, error) {
-	subAddrs := getSubAddrKey()
+	_, subPrivates := getSubAddrKey()
 
-	for _, subPrivateKey := range subAddrs {
+	for _, subPrivateKey := range subPrivates {
 		tokenBalance, _ := getTokenBalance(subPrivateKey)
 
 		contract, err := initContract()

@@ -8,13 +8,15 @@ import (
 	"airdrop/config"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/accounts/keystore"
+	"github.com/ethereum/go-ethereum/common"
 )
 
 // GetTokenTotal get all Token balance total
 func GetTokenTotal() {
-	subAddrs := getSubAddrKey()
+	_, subPrivates := getSubAddrKey()
 	total := big.NewInt(0)
-	for _, subPrivateKey := range subAddrs {
+	for _, subPrivateKey := range subPrivates {
 		balance, err := getTokenBalance(subPrivateKey)
 		if err != nil {
 			fmt.Println(err)
@@ -48,4 +50,29 @@ func getTokenBalance(privateKey string) (*big.Int, error) {
 	}
 
 	return output, nil
+}
+
+// GetAddrsBalanceTotal get Addrs balance total
+func GetAddrsBalanceTotal() *big.Int {
+	i := 0
+	_, subPrivates := getSubAddrKey()
+	for _, privateKey := range subPrivates {
+		if i > 0 {
+			// break
+		}
+		subAddrKeystore := convertToKeystore(privateKey)
+		// nonce, _ := getCurrentNonce(subAddrKeystore)
+		fmt.Println(GetAddrBalance(subAddrKeystore))
+		i++
+	}
+
+	// awk '{if(NR%2==0){printf $0 "\n"}else{printf "%s\t", $0}}' file.txt
+	// sed '$!N;s/\n/\t/' file.txt
+	return common.Big0
+}
+
+// GetAddrBalance get balance via private-key
+func GetAddrBalance(keystore *keystore.Key) *big.Int {
+	GetBalance(keystore.Address)
+	return common.Big0
 }

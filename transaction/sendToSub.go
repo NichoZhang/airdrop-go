@@ -19,9 +19,9 @@ func SendToSub() {
 	indentMainKey, _ := json.MarshalIndent(mainKeyStore, "", "  ")
 	fmt.Println(string(indentMainKey))
 
-	addrKey := getSubAddrKey()
+	_, addrPrivates := getSubAddrKey()
 	i := 0
-	for _, privateKey := range addrKey {
+	for _, privateKey := range addrPrivates {
 		if i > 0 {
 			// break
 		}

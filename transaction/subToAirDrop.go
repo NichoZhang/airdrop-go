@@ -11,8 +11,8 @@ import (
 // SubToAirDrop send default value to airdrop address
 func SubToAirDrop() {
 	// get subaddress key
-	subAddrs := getSubAddrKey()
-	for _, privateKey := range subAddrs {
+	_, subPrivates := getSubAddrKey()
+	for _, privateKey := range subPrivates {
 		subAddrKeystore := convertToKeystore(privateKey)
 		nonce, _ := getCurrentNonce(subAddrKeystore)
 		fmt.Println(subAddrKeystore.Address.Hex())
