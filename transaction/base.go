@@ -141,16 +141,13 @@ func SendTransaction(from *keystore.Key, to common.Address, amount *big.Int, dat
 		return nil, fmt.Errorf("init-client: %s", err.Error())
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), config.Conf.Timeout)
-	defer cancel()
-
 	tx := types.NewTransaction(nonce, to, amount, client.GasLimit, client.GasPrice, []byte(data))
 	tx, err = types.SignTx(tx, types.FrontierSigner{}, from.PrivateKey)
 	if err != nil {
 		return nil, fmt.Errorf("sign-transaction: %s", err.Error())
 	}
 
-	ctx, cancel = context.WithTimeout(context.Background(), config.Conf.Timeout)
+	ctx, cancel := context.WithTimeout(context.Background(), config.Conf.Timeout)
 	defer cancel()
 
 	err = client.SendTransaction(ctx, tx)
