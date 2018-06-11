@@ -22,7 +22,7 @@ func main() {
 	// sendToSub     send eth to subaddress
 	// subToAirdrop  send 0 eth to airdrop address
 	// withdrawToken withdraw the token from subaddress
-	flag.StringVar(&mode, "m", "GetTokenTotal", "conf path")
+	flag.StringVar(&mode, "m", "getTokenTotal", "conf path")
 	flag.Int64Var(&amount, "amount", 0, "tx amount")
 	flag.StringVar(&network, "network", "ropsten", "network")
 	flag.StringVar(&confPath, "c", gopath+"/src/airdrop/conf_", "conf path")

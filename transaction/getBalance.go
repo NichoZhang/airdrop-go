@@ -24,6 +24,8 @@ func GetTokenTotal() {
 		total = total.Add(total, balance)
 	}
 	fmt.Println(total)
+	f, _ := new(big.Float).SetInt(total).Float64()
+	fmt.Printf("%018.18f", f/float64(config.Ether(1).Int64()))
 }
 
 func getTokenBalance(privateKey string) (*big.Int, error) {

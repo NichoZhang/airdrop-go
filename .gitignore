@@ -7,3 +7,5 @@ conf_*
 *.swp
 Gopkg.lock
 addr_*
+
+account_test.*
