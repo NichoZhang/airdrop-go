@@ -22,7 +22,7 @@ func main() {
 	// sendToSub     send eth to subaddress
 	// subToAirdrop  send 0 eth to airdrop address
 	// withdrawToken withdraw the token from subaddress
-	flag.StringVar(&mode, "m", "sendToSub", "conf path")
+	flag.StringVar(&mode, "m", "GetTokenTotal", "conf path")
 	flag.Int64Var(&amount, "amount", 0, "tx amount")
 	flag.StringVar(&network, "network", "ropsten", "network")
 	flag.StringVar(&confPath, "c", gopath+"/src/airdrop/conf_", "conf path")
@@ -31,6 +31,8 @@ func main() {
 	config.Init(confPath + network + ".json")
 
 	switch mode {
+	case "testContract":
+		//		transaction.TestContract()
 	case "createAccount":
 		account.Create()
 	case "sendToSub":

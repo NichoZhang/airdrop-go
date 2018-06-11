@@ -5,7 +5,10 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
+	"os"
+	"strconv"
 	"sync"
+	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -15,24 +18,26 @@ var wg sync.WaitGroup
 
 // Create used to create subaccount
 func Create() {
-	// filename := "account_test.txt"
-	// f, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
+	nowTime := time.Now().Unix()
+	filename := "account_test.txt." + strconv.FormatInt(nowTime, 10)
+	f, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666)
+	defer f.Close()
+	if err != nil {
+		fmt.Println(err)
+	}
 	accountCount := config.Conf.AccountCount
+	logChain := make(chan string, accountCount)
+	defer close(logChain)
 	for i := 0; i < accountCount; i++ {
-		wg.Add(1)
 		go func() {
 			key := keystore.NewKeyForDirectICAP(rand.Reader)
-			fmt.Println(key.Address.Hex())
-			fmt.Println(hex.EncodeToString(crypto.FromECDSA(key.PrivateKey)))
-			wg.Done()
+			address := key.Address.Hex()
+			privateKey := hex.EncodeToString(crypto.FromECDSA(key.PrivateKey))
+			logString := address + "\n" + privateKey + "\n"
+			logChain <- logString
 		}()
 	}
-	wg.Wait()
+	for i := 0; i < accountCount; i++ {
+		f.Write([]byte(<-logChain))
+	}
 }
-
-// func writeToFile(i int, f *os.File, w *sync.WaitGroup) {
-// 	w.Done()
-// }
